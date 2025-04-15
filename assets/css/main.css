@@ -1,0 +1,8 @@
+/* Bootstrap 5.3.3 integrated via CDN */
+.parallax-section {
+  background-image: url('https://source.unsplash.com/1600x600/?nature,landscape');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+}
