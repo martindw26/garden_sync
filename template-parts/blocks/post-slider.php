@@ -223,34 +223,36 @@ $query = new WP_Query($args);
       }
     });
 
-    const nextBtn = document.querySelector('.swiper-button-next');
+    const nextButton = document.querySelector('.swiper-button-next');
 
-    nextBtn.addEventListener('click', function (e) {
-      // Determine how many full slides fit
-      let slidesPerView = swiper.params.slidesPerView;
-
-      // If slidesPerView is a responsive object, get actual number being used
-      if (typeof slidesPerView === 'object') {
-        const width = window.innerWidth;
-        const breakpoints = Object.keys(swiper.params.breakpoints).map(Number).sort((a, b) => a - b);
-        for (const bp of breakpoints) {
-          if (width >= bp) {
-            slidesPerView = swiper.params.breakpoints[bp].slidesPerView;
+    nextButton.addEventListener('click', (e) => {
+      // Get correct slidesPerView at this screen width
+      const getSlidesPerView = () => {
+        let slidesPerView = swiper.params.slidesPerView;
+        if (typeof slidesPerView === 'object') {
+          const width = window.innerWidth;
+          const sorted = Object.keys(swiper.params.breakpoints).map(Number).sort((a, b) => a - b);
+          for (let i = 0; i < sorted.length; i++) {
+            if (width >= sorted[i]) {
+              slidesPerView = swiper.params.breakpoints[sorted[i]].slidesPerView;
+            }
           }
         }
-      }
+        return parseFloat(slidesPerView);
+      };
 
-      const totalSlides = swiper.slides.length;
-      const currentIndex = swiper.activeIndex;
-      const maxIndex = totalSlides - slidesPerView;
+      const slidesPerView = getSlidesPerView();
+      const lastVisibleSlideIndex = swiper.slides.length - Math.ceil(slidesPerView);
 
-      if (currentIndex >= maxIndex) {
-        e.preventDefault(); // stop Swiper from sliding again
-        swiper.slideTo(0);  // reset to first slide
+      // If we're currently at or beyond the last visible slide, reset
+      if (swiper.activeIndex >= lastVisibleSlideIndex) {
+        e.preventDefault(); // stop the default next behavior
+        swiper.slideTo(0);
       }
     });
   });
 </script>
+
 
 
 
