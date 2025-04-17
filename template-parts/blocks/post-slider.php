@@ -225,16 +225,33 @@ $query = new WP_Query($args);
 
     const nextBtn = document.querySelector('.swiper-button-next');
 
-    nextBtn.addEventListener('click', function () {
-      // Delay to allow Swiper to update activeIndex
-      setTimeout(() => {
-        if (swiper.isEnd) {
-          swiper.slideTo(0);
+    nextBtn.addEventListener('click', function (e) {
+      // Determine how many full slides fit
+      let slidesPerView = swiper.params.slidesPerView;
+
+      // If slidesPerView is a responsive object, get actual number being used
+      if (typeof slidesPerView === 'object') {
+        const width = window.innerWidth;
+        const breakpoints = Object.keys(swiper.params.breakpoints).map(Number).sort((a, b) => a - b);
+        for (const bp of breakpoints) {
+          if (width >= bp) {
+            slidesPerView = swiper.params.breakpoints[bp].slidesPerView;
+          }
         }
-      }, 50); // Wait a tick so Swiper can update internally
+      }
+
+      const totalSlides = swiper.slides.length;
+      const currentIndex = swiper.activeIndex;
+      const maxIndex = totalSlides - slidesPerView;
+
+      if (currentIndex >= maxIndex) {
+        e.preventDefault(); // stop Swiper from sliding again
+        swiper.slideTo(0);  // reset to first slide
+      }
     });
   });
 </script>
+
 
 
 
