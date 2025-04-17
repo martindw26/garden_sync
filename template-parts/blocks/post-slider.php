@@ -31,11 +31,6 @@
       margin: 0;
     }
 
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-      filter: invert(1);
-    }
-
     .carousel-indicators [data-bs-target] {
       width: 10px;
       height: 10px;
@@ -50,6 +45,31 @@
     .carousel-counter {
       font-size: 0.9rem;
       color: #666;
+    }
+
+    /* Custom next/prev buttons */
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: auto;
+      height: auto;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .custom-carousel-icon {
+      font-size: 1.5rem;
+      color: #0073e6;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      padding: 0.5rem 0.75rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .carousel-control-prev:hover .custom-carousel-icon,
+    .carousel-control-next:hover .custom-carousel-icon {
+      background: #0073e6;
+      color: #fff;
     }
   </style>
 </head>
@@ -103,13 +123,13 @@ $query = new WP_Query($args);
         <?php $i++; endwhile; wp_reset_postdata(); ?>
       </div>
 
-      <!-- Controls -->
+      <!-- Custom Controls -->
       <button class="carousel-control-prev" type="button" data-bs-target="#postCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="custom-carousel-icon" aria-hidden="true">&larr;</span>
         <span class="visually-hidden">Previous</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#postCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="custom-carousel-icon" aria-hidden="true">&rarr;</span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
