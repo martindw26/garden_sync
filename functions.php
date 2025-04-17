@@ -34,28 +34,4 @@ function naturepress_widgets_init() {
 }
 add_action('widgets_init', 'naturepress_widgets_init');
 
-// Register ACF Gutenberg blocks only if ACF is active
-if (function_exists('acf_register_block_type')) {
-    add_action('acf/init', 'naturepress_register_acf_blocks');
-    function naturepress_register_acf_blocks() {
-        acf_register_block_type(array(
-            'name'              => 'post-slider',
-            'title'             => __('Post Slider'),
-            'description'       => __('Displays a slider of selected posts.'),
-            'render_template'   => 'template-parts/blocks/post-slider.php',
-            'category'          => 'widgets',
-            'icon'              => 'images-alt2',
-            'keywords'          => array('posts', 'slider'),
-        ));
 
-        acf_register_block_type(array(
-            'name'              => 'post-grid',
-            'title'             => __('Post Grid'),
-            'description'       => __('Displays a grid of selected posts.'),
-            'render_template'   => 'template-parts/blocks/post-grid.php',
-            'category'          => 'widgets',
-            'icon'              => 'screenoptions',
-            'keywords'          => array('posts', 'grid'),
-        ));
-    }
-}
