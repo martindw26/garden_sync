@@ -34,6 +34,13 @@ function naturepress_widgets_init() {
 }
 add_action('widgets_init', 'naturepress_widgets_init');
 
+// Slider CSS
+add_action('enqueue_block_assets', 'enqueue_slider_styles');
+function enqueue_slider_styles() {
+    wp_enqueue_style('post-slider-css', get_template_directory_uri() . '/css/post-slider.css');
+}
+
+
 //Other functions
 
 require_once get_template_directory() . '/functions/blocks.php';
