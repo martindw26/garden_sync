@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<div id="container">
+
 <main id="main" role="main">
     <?php if ( have_posts() ) : ?>
         <?php while ( have_posts() ) : the_post(); ?>
@@ -11,5 +13,7 @@
         <p><?php esc_html_e( 'Sorry, no content found.', 'your-theme-textdomain' ); ?></p>
     <?php endif; ?>
 </main>
+
+</div>
 
 <?php get_footer(); ?>
