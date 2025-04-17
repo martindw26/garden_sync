@@ -1,11 +1,22 @@
 <?php
+
 // Enqueue scripts and styles
 function naturepress_scripts() {
+    // Enqueue Bootstrap CSS first
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
+
+    // Enqueue Post Slider CSS after Bootstrap
+    wp_enqueue_style('post-slider-css', get_template_directory_uri() . '/css/post-slider.css', array('bootstrap-css'));
+
+    // Enqueue Bootstrap JS
     wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array(), null, true);
+
+    // Enqueue custom JS
     wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/main.js', array(), null, true);
 }
 add_action('wp_enqueue_scripts', 'naturepress_scripts');
+
+
 
 // Theme setup
 function naturepress_setup() {
@@ -34,11 +45,6 @@ function naturepress_widgets_init() {
 }
 add_action('widgets_init', 'naturepress_widgets_init');
 
-// Slider CSS
-add_action('enqueue_block_assets', 'enqueue_slider_styles');
-function enqueue_slider_styles() {
-    wp_enqueue_style('post-slider-css', get_template_directory_uri() . '/css/post-slider.css');
-}
 
 
 //Other functions
