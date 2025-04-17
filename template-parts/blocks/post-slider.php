@@ -202,6 +202,7 @@ $query = new WP_Query($args);
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // Setup Swiper
     const swiper = new Swiper('.swiper-container', {
       slidesPerView: 1,
       spaceBetween: 20,
@@ -225,33 +226,37 @@ $query = new WP_Query($args);
 
     const nextButton = document.querySelector('.swiper-button-next');
 
-    nextButton.addEventListener('click', (e) => {
-      // Get correct slidesPerView at this screen width
-      const getSlidesPerView = () => {
+    nextButton.addEventListener('click', function (e) {
+      // Delay checking after Swiper computes the next index
+      setTimeout(() => {
         let slidesPerView = swiper.params.slidesPerView;
+
+        // Get active slidesPerView from current breakpoint
         if (typeof slidesPerView === 'object') {
-          const width = window.innerWidth;
-          const sorted = Object.keys(swiper.params.breakpoints).map(Number).sort((a, b) => a - b);
-          for (let i = 0; i < sorted.length; i++) {
-            if (width >= sorted[i]) {
-              slidesPerView = swiper.params.breakpoints[sorted[i]].slidesPerView;
+          const breakpoints = swiper.params.breakpoints;
+          const viewport = window.innerWidth;
+
+          for (const bp in breakpoints) {
+            if (viewport >= bp) {
+              slidesPerView = breakpoints[bp].slidesPerView;
             }
           }
         }
-        return parseFloat(slidesPerView);
-      };
 
-      const slidesPerView = getSlidesPerView();
-      const lastVisibleSlideIndex = swiper.slides.length - Math.ceil(slidesPerView);
+        // Fallback if slidesPerView is still object
+        if (typeof slidesPerView !== 'number') slidesPerView = 1;
 
-      // If we're currently at or beyond the last visible slide, reset
-      if (swiper.activeIndex >= lastVisibleSlideIndex) {
-        e.preventDefault(); // stop the default next behavior
-        swiper.slideTo(0);
-      }
+        const totalSlides = swiper.slides.length;
+        const maxIndex = totalSlides - Math.ceil(slidesPerView);
+
+        if (swiper.activeIndex >= maxIndex) {
+          swiper.slideTo(0);
+        }
+      }, 50); // Give Swiper time to update its index
     });
   });
 </script>
+
 
 
 
