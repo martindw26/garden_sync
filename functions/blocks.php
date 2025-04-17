@@ -20,5 +20,23 @@ function register_slider_block() {
     }
 }
 
+add_action('enqueue_block_assets', 'enqueue_slider_assets');
+function enqueue_slider_assets() {
+    wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css');
+    wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper/swiper-bundle.min.js', [], null, true);
+
+    wp_add_inline_script('swiper-js', "
+        document.addEventListener('DOMContentLoaded', function () {
+            new Swiper('.swiper-container', {
+                loop: true,
+                slidesPerView: 1,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        });
+    ");
+}
 
 
