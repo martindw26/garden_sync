@@ -47,7 +47,6 @@
       color: #666;
     }
 
-    /* Custom next/prev buttons */
     .carousel-control-prev,
     .carousel-control-next {
       width: auto;
@@ -75,10 +74,11 @@
 </head>
 
 <?php
-$slider_title = get_field('slider_title');
+$slider_title   = get_field('slider_title');
 $title_alignment = get_field('title_alignment') ?: 'left';
-$num_posts = get_field('number_of_posts') ?: 5;
-$categories = get_field('categories');
+$num_posts       = get_field('number_of_posts') ?: 5;
+$autoplay        = get_field('autoplay_slider'); // ✅ Autoplay toggle
+$categories      = get_field('categories');
 
 // WP Query
 $args = [
@@ -99,11 +99,19 @@ $query = new WP_Query($args);
   <?php endif; ?>
 
   <?php if ($query->have_posts()): ?>
-    <div id="postCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000" data-bs-pause="hover">
+    <div id="postCarousel"
+         class="carousel slide"
+         <?= $autoplay ? 'data-bs-ride="carousel" data-bs-interval="6000" data-bs-pause="hover"' : ''; ?>>
+
       <!-- Indicators -->
       <div class="carousel-indicators">
         <?php for ($j = 0; $j < $query->post_count; $j++): ?>
-          <button type="button" data-bs-target="#postCarousel" data-bs-slide-to="<?= $j; ?>" class="<?= $j === 0 ? 'active' : ''; ?>" aria-current="<?= $j === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?= $j + 1; ?>"></button>
+          <button type="button"
+                  data-bs-target="#postCarousel"
+                  data-bs-slide-to="<?= $j; ?>"
+                  class="<?= $j === 0 ? 'active' : ''; ?>"
+                  aria-current="<?= $j === 0 ? 'true' : 'false'; ?>"
+                  aria-label="Slide <?= $j + 1; ?>"></button>
         <?php endfor; ?>
       </div>
 
