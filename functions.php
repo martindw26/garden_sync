@@ -44,4 +44,4 @@ function enqueue_slider_styles() {
 //Other functions
 
 require_once get_template_directory() . '/functions/blocks.php';
-require_once get_template_directory() . '/functions/css.php';
+
