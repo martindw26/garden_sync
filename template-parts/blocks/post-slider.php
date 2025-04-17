@@ -200,8 +200,6 @@ $query = new WP_Query($args);
   <?php endif; ?>
 </div>
 
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.swiper-container', {
@@ -223,21 +221,18 @@ $query = new WP_Query($args);
           slidesPerView: 3,
         }
       },
-      on: {
-        reachEnd: function () {
-          const nextBtn = document.querySelector('.swiper-button-next');
-          nextBtn.addEventListener('click', () => {
-            swiper.slideTo(0);
-          }, { once: true });
-        },
-        fromEdge: function () {
-          // Reset button behavior
-          const oldNext = document.querySelector('.swiper-button-next');
-          const newNext = oldNext.cloneNode(true);
-          oldNext.replaceWith(newNext);
-          swiper.navigation.init(); // Re-init navigation
-        }
+    });
+
+    const nextBtn = document.querySelector('.swiper-button-next');
+
+    nextBtn.addEventListener('click', function () {
+      const isLastSlide =
+        swiper.activeIndex === swiper.slides.length - swiper.params.slidesPerView;
+
+      if (isLastSlide || swiper.isEnd) {
+        swiper.slideTo(0);
       }
     });
   });
 </script>
+
