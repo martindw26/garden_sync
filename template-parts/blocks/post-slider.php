@@ -226,17 +226,15 @@ $query = new WP_Query($args);
     const nextBtn = document.querySelector('.swiper-button-next');
 
     nextBtn.addEventListener('click', function () {
-      const totalSlides = swiper.slides.length;
-      const currentIndex = swiper.activeIndex;
-      const visibleSlides = swiper.params.slidesPerView;
-
-      const maxIndex = totalSlides - visibleSlides;
-
-      if (currentIndex >= maxIndex) {
-        swiper.slideTo(0);
-      }
+      // Delay to allow Swiper to update activeIndex
+      setTimeout(() => {
+        if (swiper.isEnd) {
+          swiper.slideTo(0);
+        }
+      }, 50); // Wait a tick so Swiper can update internally
     });
   });
 </script>
+
 
 
