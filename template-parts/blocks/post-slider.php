@@ -220,19 +220,23 @@ $query = new WP_Query($args);
         1024: {
           slidesPerView: 3,
         }
-      },
+      }
     });
 
     const nextBtn = document.querySelector('.swiper-button-next');
 
     nextBtn.addEventListener('click', function () {
-      const isLastSlide =
-        swiper.activeIndex === swiper.slides.length - swiper.params.slidesPerView;
+      const totalSlides = swiper.slides.length;
+      const currentIndex = swiper.activeIndex;
+      const visibleSlides = swiper.params.slidesPerView;
 
-      if (isLastSlide || swiper.isEnd) {
+      const maxIndex = totalSlides - visibleSlides;
+
+      if (currentIndex >= maxIndex) {
         swiper.slideTo(0);
       }
     });
   });
 </script>
+
 
