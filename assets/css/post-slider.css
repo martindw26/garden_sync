@@ -1,0 +1,120 @@
+/* Modern 2025-style slider block */
+.post-slider-block {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+  }
+  
+  .post-slider-block h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    text-transform: capitalize;
+    letter-spacing: -0.02em;
+  }
+  
+  .swiper-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .swiper-wrapper {
+    display: flex;
+  }
+  
+  .swiper-slide {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .swiper-slide:hover {
+    transform: translateY(-5px);
+  }
+  
+  .swiper-slide article {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 1rem;
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .swiper-slide h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .swiper-slide a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .swiper-slide a:hover h3 {
+    color: #0073e6;
+  }
+  
+  /* Swiper navigation buttons */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #0073e6;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+  }
+  
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    background-color: #0073e6;
+    color: #fff;
+  }
+  
+  /* Responsive tweaks */
+  @media (min-width: 640px) {
+    .swiper-slide {
+      max-width: 80%;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .swiper-slide {
+      max-width: 600px;
+    }
+  
+    .swiper-slide article {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  
+    .swiper-slide img {
+      width: 50%;
+      object-fit: cover;
+    }
+  
+    .swiper-slide h3 {
+      font-size: 1.5rem;
+    }
+  }
+  

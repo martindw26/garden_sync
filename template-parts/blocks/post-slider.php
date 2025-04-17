@@ -20,10 +20,13 @@ $query = new WP_Query($args);
 
 <div class="post-slider-block">
     <?php if ($slider_title): ?>
-        <h2 style="text-align: <?= esc_attr($title_alignment); ?>;">
-            <?= esc_html($slider_title); ?>
-        </h2>
+        <header>
+            <h2 style="text-align: <?= esc_attr($title_alignment); ?>;">
+                <?= esc_html($slider_title); ?>
+            </h2>
+        </header>
     <?php endif; ?>
+
 
     <?php if ($query->have_posts()): ?>
         <div class="swiper-container">
