@@ -34,4 +34,6 @@ function naturepress_widgets_init() {
 }
 add_action('widgets_init', 'naturepress_widgets_init');
 
+//Other functions
 
+require_once get_template_directory() . '/functions/blocks.php';
